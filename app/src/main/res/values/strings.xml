@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BirdHerd</string>
+    <string name="login">\"Log in with Twitter!\"</string>
 </resources>
