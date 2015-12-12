@@ -7,12 +7,8 @@ import android.util.Log;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.TwitterApiClient;
 import com.twitter.sdk.android.core.TwitterException;
-import com.twitter.sdk.android.core.models.Tweet;
-import com.twitter.sdk.android.core.services.StatusesService;
-
-import java.util.List;
+import com.twitter.sdk.android.core.TwitterSession;
 
 public class SandboxActivity extends AppCompatActivity {
 
@@ -21,20 +17,19 @@ public class SandboxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sandbox);
 
-        TwitterApiClient client = Twitter.getApiClient();
-        StatusesService srv = client.getStatusesService();
-
-        srv.retweetsOfMe(5, null, null, null, null, null, new Callback<List<Tweet>>() {
+        TwitterSession session = Twitter.getSessionManager().getActiveSession();
+        BirdHerdTwitterApiClient client = new BirdHerdTwitterApiClient(session);
+        client.getFollowerService().followerIds(session.getUserId(), 5, new Callback<BirdHerdTwitterApiClient.Followers>() {
             @Override
-            public void success(Result<List<Tweet>> result) {
-                for (Tweet t : result.data) {
-                    Log.d("Sandbox", t.text);
+            public void success(Result<BirdHerdTwitterApiClient.Followers> result) {
+                for (Long id : result.data.ids) {
+                    Log.d("Sandbox", id.toString());
                 }
             }
 
             @Override
             public void failure(TwitterException exception) {
-                Log.d("TwitterAPI", "Failed to retrieve retweets of logged-in user.", exception);
+                Log.d("Sandbox", "Failed to get followers for user.", exception);
             }
         });
     }
