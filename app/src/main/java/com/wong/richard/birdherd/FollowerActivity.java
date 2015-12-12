@@ -9,21 +9,22 @@ import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.models.User;
 
-public class SandboxActivity extends AppCompatActivity {
+public class FollowerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sandbox);
+        setContentView(R.layout.activity_follower);
 
         TwitterSession session = Twitter.getSessionManager().getActiveSession();
         BirdHerdTwitterApiClient client = new BirdHerdTwitterApiClient(session);
-        client.getFollowerService().followerIds(session.getUserId(), 5, new Callback<BirdHerdTwitterApiClient.Followers>() {
+        client.getFollowerService().followerList(session.getUserId(), 200, new Callback<BirdHerdTwitterApiClient.Followers>() {
             @Override
             public void success(Result<BirdHerdTwitterApiClient.Followers> result) {
-                for (Long id : result.data.ids) {
-                    Log.d("Sandbox", id.toString());
+                for (User u : result.data.users) {
+                    Log.d("Sandbox", u.screenName);
                 }
             }
 

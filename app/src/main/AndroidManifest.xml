@@ -22,7 +22,7 @@
             android:name="io.fabric.ApiKey"
             android:value="8c4fabb52fb146b879abc14ade87805d11257dec" />
 
-        <activity android:name=".SandboxActivity"></activity>
+        <activity android:name=".FollowerActivity"></activity>
     </application>
 
 </manifest>

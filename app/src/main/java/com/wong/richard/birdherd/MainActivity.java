@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 String msg = "@" + session.getUserName() + " logged in! (#" + session.getUserId() + ")";
                 Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(mainContext, SandboxActivity.class);
+                Intent intent = new Intent(mainContext, FollowerActivity.class);
                 startActivity(intent);
             }
 

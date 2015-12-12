@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.TwitterApiClient;
 import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.models.User;
 
 import retrofit.http.GET;
 import retrofit.http.Query;
@@ -22,15 +23,35 @@ public class BirdHerdTwitterApiClient extends TwitterApiClient {
     public interface FollowerService {
         @GET("/1.1/followers/ids.json")
         void followerIds(@Query("user_id") Long id,
-                  @Query("count") Integer count,
-                  Callback<Followers> cb);
+                         @Query("count") Integer count,
+                         Callback<FollowerIds> cb);
+        @GET("/1.1/followers/list.json")
+        void followerList(@Query("user_id") Long id,
+                         @Query("count") Integer count,
+                         Callback<Followers> cb);
     }
-    public class Followers {
+    public class FollowerIds {
         @SerializedName("ids")
         public final Long[] ids;
 
-        public Followers(Long previousCursor, Long[] ids, Long nextCursor) {
+        public FollowerIds(Long[] ids) {
             this.ids = ids;
+        }
+    }
+    public class Followers {
+        @SerializedName("previous_cursor")
+        public final Long prevCursor;
+
+        @SerializedName("next_cursor")
+        public final Long nextCursor;
+
+        @SerializedName("users")
+        public final User[] users;
+
+        public Followers(Long prevCursor, User[] users, Long nextCursor) {
+            this.users = users;
+            this.prevCursor = prevCursor;
+            this.nextCursor = nextCursor;
         }
     }
 
