@@ -19,10 +19,10 @@ public class FollowerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_follower);
 
         TwitterSession session = Twitter.getSessionManager().getActiveSession();
-        BirdHerdTwitterApiClient client = new BirdHerdTwitterApiClient(session);
-        client.getFollowerService().followerList(session.getUserId(), 200, new Callback<BirdHerdTwitterApiClient.Followers>() {
+        MyTwApiClient client = new MyTwApiClient(session);
+        client.getFollowerService().followerList(session.getUserId(), 200, new Callback<MyTwApiClient.Followers>() {
             @Override
-            public void success(Result<BirdHerdTwitterApiClient.Followers> result) {
+            public void success(Result<MyTwApiClient.Followers> result) {
                 for (User u : result.data.users) {
                     Log.d("Sandbox", u.screenName);
                 }

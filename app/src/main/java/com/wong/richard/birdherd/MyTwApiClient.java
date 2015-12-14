@@ -12,8 +12,8 @@ import retrofit.http.Query;
 /**
  * Created by rwong on 12/11/15.
  */
-public class BirdHerdTwitterApiClient extends TwitterApiClient {
-    public BirdHerdTwitterApiClient(TwitterSession session) {
+public class MyTwApiClient extends TwitterApiClient {
+    public MyTwApiClient(TwitterSession session) {
         super(session);
     }
 
